@@ -30,7 +30,7 @@ public final class LinkEdit extends AbstractMenu {
         for (int i = 0; i < links.size(); i++) {
             Link link = links.get(i);
             context.println("%4d: [%s] %s Осталось переходов %d, минут %d", i + 1, Config.SITE_NAME + link.getShortLink(), link.getFqdn(), link.getClicksLeft(),
-                    link.duration());
+                    link.durationPrint());
         }
         context.println("%4d: %s", links.size() + 1, "Назад");
         printLine(context);
@@ -56,7 +56,7 @@ public final class LinkEdit extends AbstractMenu {
 
         String fqdn = context.selectStringDefault("Введите новую ссылку", link.getFqdn());
         Number count = context.selectNumberDefault("Введите новое количество переходов", link.getClicksLeft());
-        Number minutes = context.selectNumberDefault("Введите новое время жизни в минутах", link.duration());
+        Number minutes = context.selectNumberDefault("Введите новое время жизни в минутах", link.durationPrint());
         link.setFqdn(fqdn);
         link.setClicksLeft(count.intValue());
         link.setExpirationDate(LocalDateTime.now().plusMinutes(minutes.intValue()));

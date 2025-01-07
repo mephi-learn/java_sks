@@ -35,9 +35,13 @@ public final class LinkCreate extends AbstractMenu {
         Number count = context.selectNumberDefault("Введите количество переходов", Config.MAX_CLICKS);
         Number minutes = context.selectNumberDefault("Введите время жизни в минутах", Config.MAX_MINUTES);
 
+        // Получаем аутентифицированного пользователя
         User user = context.authorized().map(Authentication.Session::user).orElse(null);
 
+        // Создаём ссылку и пользователя, если нет аутентификации
         LinkResponse link = context.service.createLink(fqdn, user, count.intValue(), LocalDateTime.now().plusMinutes(minutes.intValue()));
+
+        // Если аутентификации нет, то будем аутентифицировать только что созданного пользователя
         if (context.authorized().isEmpty()) {
             Optional<Authentication.Session> session = context.service.getAuthentication().authenticateByUserId(link.getUserId());
             session.ifPresent(context::putSession);

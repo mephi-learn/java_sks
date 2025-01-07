@@ -11,12 +11,26 @@
         "clicksLeft": 0,
         "expirationDate": "2026-01-07 14:09:20"
       },
-      "sO": {
+      "sOlWqQg2qw": {
         "userId": "1cb48d59-9adb-400d-a072-7af383036d22",
         "fqdn": "https://dtf.ru",
         "shortLink": "sOlWqQg2qw",
         "clicksLeft": 2,
         "expirationDate": "2025-01-07 17:22:52"
+      }
+    }
+  },
+  "d8eecbbb-cfa4-456b-b1c2-348523ea12d3": {
+    "userId": "d8eecbbb-cfa4-456b-b1c2-348523ea12d3",
+    "username": "d8eecbbb-cfa4-456b-b1c2-348523ea12d3",
+    "hashedPassword": "12fafe9a7cbdd21b21124fe352f9c9fb439623947c9c3daf49a5f26f00733a2c",
+    "links": {
+      "zhftNgXB3u": {
+        "userId": "d8eecbbb-cfa4-456b-b1c2-348523ea12d3",
+        "fqdn": "https://dtf.ru",
+        "shortLink": "zhftNgXB3u",
+        "clicksLeft": 5,
+        "expirationDate": "2025-01-07 19:58:39"
       }
     }
   },
@@ -31,6 +45,27 @@
         "shortLink": "orz4dSsEjN",
         "clicksLeft": 10,
         "expirationDate": "2026-01-07 14:09:44"
+      }
+    }
+  },
+  "3e009f4e-e204-4770-81ed-d0551dcc9797": {
+    "userId": "3e009f4e-e204-4770-81ed-d0551dcc9797",
+    "username": "3e009f4e-e204-4770-81ed-d0551dcc9797",
+    "hashedPassword": "9f2214a6115f62dbc4cd8c56ae1b65a3396470f619ac024fc772032eac80a20c",
+    "links": {
+      "b9zBiiYMDU": {
+        "userId": "3e009f4e-e204-4770-81ed-d0551dcc9797",
+        "fqdn": "https://dtf.ru",
+        "shortLink": "b9zBiiYMDU",
+        "clicksLeft": 9,
+        "expirationDate": "2025-01-08 19:58:58"
+      },
+      "wNQVp5erOh": {
+        "userId": "3e009f4e-e204-4770-81ed-d0551dcc9797",
+        "fqdn": "https://www.ru",
+        "shortLink": "wNQVp5erOh",
+        "clicksLeft": 10,
+        "expirationDate": "2025-01-07 20:40:14"
       }
     }
   }

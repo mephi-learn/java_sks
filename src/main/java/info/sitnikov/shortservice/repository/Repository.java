@@ -63,17 +63,15 @@ public interface Repository {
             user.addLink(link);
         }
 
-        //        @Override
-//        public void deleteUserById(String userId) {
-//            this.users.remove(userId);
-//            this.Store();
-//        }
-//
         @Override
         public Optional<Link> getLinkByShortLink(String shortLink) {
             for (User user : this.users.values()) {
                 Map<String, Link> links = user.getLinks();
                 if (links.containsKey(shortLink)) {
+                    if (links.get(shortLink).needDelete()) {
+                        user.getLinks().remove(shortLink);
+                        return Optional.empty();
+                    }
                     return Optional.ofNullable(links.get(shortLink));
                 }
             }
@@ -83,8 +81,15 @@ public interface Repository {
         @Override
         public List<Link> getLinkListByUserId(String userId) {
             User user = this.users.get(userId);
-            Map<String, Link> links = user.getLinks();
-            return new ArrayList<>(links.values());
+            List<Link> links = new ArrayList<>();
+            for (Link link : user.getLinks().values()) {
+                if (link.needDelete()) {
+                    user.getLinks().remove(link.getShortLink());
+                    continue;
+                }
+                links.add(link);
+            }
+            return links;
         }
 
         @Override
@@ -92,6 +97,11 @@ public interface Repository {
             User user = this.users.get(userId);
             if (user == null) {
                 return Optional.empty();
+            }
+            for (Link link : user.getLinks().values()) {
+                if (link.needDelete()) {
+                    user.getLinks().remove(link.getShortLink());
+                }
             }
             return Optional.of(new HashMap<>(user.getLinks()));
         }
