@@ -1,0 +1,37 @@
+{
+  "1cb48d59-9adb-400d-a072-7af383036d22": {
+    "userId": "1cb48d59-9adb-400d-a072-7af383036d22",
+    "username": "1cb48d59-9adb-400d-a072-7af383036d22",
+    "hashedPassword": "782b34e4425b1ec7202a726439e246b326906e812c56bc238bf6f227f35f77a7",
+    "links": {
+      "lpxQg2qwWq": {
+        "userId": "1cb48d59-9adb-400d-a072-7af383036d22",
+        "fqdn": "https://www.ru",
+        "shortLink": "lpxQg2qwWq",
+        "clicksLeft": 0,
+        "expirationDate": "2026-01-07 14:09:20"
+      },
+      "sO": {
+        "userId": "1cb48d59-9adb-400d-a072-7af383036d22",
+        "fqdn": "https://dtf.ru",
+        "shortLink": "sOlWqQg2qw",
+        "clicksLeft": 2,
+        "expirationDate": "2025-01-07 17:22:52"
+      }
+    }
+  },
+  "9958d912-71b3-4d68-aa38-0d00dcfc75b8": {
+    "userId": "9958d912-71b3-4d68-aa38-0d00dcfc75b8",
+    "username": "9958d912-71b3-4d68-aa38-0d00dcfc75b8",
+    "hashedPassword": "42982a911bd761ca895ae6bf1e8e43523d3ae38badb52c9e838c69857cee76d7",
+    "links": {
+      "orz4dSsEjN": {
+        "userId": "9958d912-71b3-4d68-aa38-0d00dcfc75b8",
+        "fqdn": "https://www.ru",
+        "shortLink": "orz4dSsEjN",
+        "clicksLeft": 10,
+        "expirationDate": "2026-01-07 14:09:44"
+      }
+    }
+  }
+}
