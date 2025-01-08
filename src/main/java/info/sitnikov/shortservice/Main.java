@@ -9,18 +9,19 @@ import info.sitnikov.shortservice.service.Service;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        Config config = new Config("config.json");
         Storage storage = new Storage.FileStorage("storage.json");
-        Repository repo = new Repository.Memory(storage);
+        Repository repo = new Repository.Memory(config, storage);
         Authentication authentication = Authentication.create(repo);
-        Service service = new Service.Default(repo, authentication);
+        Service service = new Service.Default(config, repo, authentication);
         repo.load();
 
         if (args.length > 0) {
             for (String shortLink : args) {
-                if (!shortLink.startsWith(Config.SITE_NAME)) {
+                if (!shortLink.startsWith(config.getSiteName())) {
                     System.out.printf("Некорректная ссылка: %s%n", shortLink);
                 }
-                shortLink = shortLink.substring(Config.SITE_NAME.length());
+                shortLink = shortLink.substring(config.getSiteName().length());
                 service.openWebpage(shortLink);
             }
             repo.store();

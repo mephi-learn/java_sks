@@ -1,7 +1,5 @@
 package info.sitnikov.shortservice.entity.menu;
 
-import info.sitnikov.shortservice.service.Config;
-
 public final class LinkGo extends AbstractMenu {
     public LinkGo() {
         super("Переход по короткой ссылке");
@@ -10,11 +8,11 @@ public final class LinkGo extends AbstractMenu {
     @Override
     public void accept(Context context) {
         String shortLink = context.selectString("Введите короткую ссылку для перехода");
-        if (!shortLink.startsWith(Config.SITE_NAME)) {
+        if (!shortLink.startsWith(context.service.config().getSiteName())) {
             context.errorln("Некорректная ссылка: %s", shortLink);
             return;
         }
-        shortLink = shortLink.substring(Config.SITE_NAME.length());
+        shortLink = shortLink.substring(context.service.config().getSiteName().length());
         context.service.openWebpage(shortLink);
     }
 }

@@ -1,6 +1,5 @@
 package info.sitnikov.shortservice.model;
 
-import info.sitnikov.shortservice.service.Config;
 import info.sitnikov.shortservice.service.dto.LinkResponse;
 import lombok.Builder;
 import lombok.Data;
@@ -31,14 +30,8 @@ final public class Link {
     }
 
     // Расчёт времени до протухания ссылки. Вернёт отрицательные значения, если ссылка протухнет
-    private long duration() {
+    public long duration() {
         return Duration.between(LocalDateTime.now(), this.expirationDate).toMinutes();
-    }
-
-    // Ссылку необходимо удалить
-    public boolean needDelete() {
-        if (Config.DELETE_EXPIRED_AFTER_MINUTES == 0) return false;
-        return -1 * this.duration() > Config.DELETE_EXPIRED_AFTER_MINUTES;
     }
 
     // Оставшееся количество минут для печати. Не может отдавать отрицательным значением

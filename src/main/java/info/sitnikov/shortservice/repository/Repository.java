@@ -3,6 +3,7 @@ package info.sitnikov.shortservice.repository;
 import info.sitnikov.shortservice.adapter.Storage;
 import info.sitnikov.shortservice.model.Link;
 import info.sitnikov.shortservice.model.User;
+import info.sitnikov.shortservice.service.Config;
 
 import java.util.*;
 
@@ -28,9 +29,11 @@ public interface Repository {
 
     public class Memory implements Repository {
         private final Storage storage;
+        private final Config config;
         private final Map<String, User> users = new HashMap<>();
 
-        public Memory(Storage storage) {
+        public Memory(Config config, Storage storage) {
+            this.config = config;
             this.storage = storage;
         }
 
@@ -68,7 +71,7 @@ public interface Repository {
             for (User user : this.users.values()) {
                 Map<String, Link> links = user.getLinks();
                 if (links.containsKey(shortLink)) {
-                    if (links.get(shortLink).needDelete()) {
+                    if (needDelete(links.get(shortLink))) {
                         user.getLinks().remove(shortLink);
                         return Optional.empty();
                     }
@@ -83,7 +86,7 @@ public interface Repository {
             User user = this.users.get(userId);
             List<Link> links = new ArrayList<>();
             for (Link link : user.getLinks().values()) {
-                if (link.needDelete()) {
+                if (needDelete(link)) {
                     user.getLinks().remove(link.getShortLink());
                     continue;
                 }
@@ -99,7 +102,7 @@ public interface Repository {
                 return Optional.empty();
             }
             for (Link link : user.getLinks().values()) {
-                if (link.needDelete()) {
+                if (needDelete(link)) {
                     user.getLinks().remove(link.getShortLink());
                 }
             }
@@ -122,6 +125,11 @@ public interface Repository {
                 this.users.clear();
                 this.store();
             }
+        }
+
+        private boolean needDelete(Link link) {
+            if (config.getDeleteExpiredAfterMinutes() == 0) return false;
+            return -1 * link.duration() > config.getDeleteExpiredAfterMinutes();
         }
     }
 }

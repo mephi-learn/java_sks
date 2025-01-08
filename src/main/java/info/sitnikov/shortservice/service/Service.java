@@ -22,6 +22,7 @@ public interface Service {
 
     List<Link> getLinkListByUserId(String userId);
 
+    Config config();
     void storeRepository();
 
     boolean openWebpage(String shortLink);
@@ -30,7 +31,10 @@ public interface Service {
         private final Repository repository;
         private final Authentication authentication;
 
-        public Default(Repository repository, Authentication auth) {
+        private final Config config;
+
+        public Default(Config config, Repository repository, Authentication auth) {
+            this.config = config;
             this.repository = repository;
             this.authentication = auth;
         }
@@ -97,7 +101,7 @@ public interface Service {
             // Короткая ссылка должна быть уникальной для всех пользователей
             String shortLink;
             do {
-                shortLink = generateShort(Config.SHORT_LENGTH);
+                shortLink = generateShort(config.getShortLength());
             } while (this.repository.getLinkByShortLink(shortLink).isPresent());
 
 
@@ -120,6 +124,11 @@ public interface Service {
         }
 
         @Override
+        public Config config() {
+            return config;
+        }
+
+        @Override
         public void storeRepository() {
             this.repository.store();
         }
@@ -128,11 +137,11 @@ public interface Service {
         public boolean openWebpage(String shortLink) {
             Optional<Link> linkByShortLink = repository.getLinkByShortLink(shortLink);
             if (linkByShortLink.isEmpty()) {
-                System.out.printf("Некорректная ссылка: %s%n", Config.SITE_NAME + shortLink);
+                System.out.printf("Некорректная ссылка: %s%n", config.getSiteName() + shortLink);
                 return false;
             }
             if (linkByShortLink.get().isExpired()) {
-                System.out.printf("Превышено количество переходов или достигнуто ограничение по времени: %s%n", Config.SITE_NAME + shortLink);
+                System.out.printf("Превышено количество переходов или достигнуто ограничение по времени: %s%n", config.getSiteName() + shortLink);
                 return false;
             }
             Link link = linkByShortLink.get();
@@ -190,5 +199,6 @@ public interface Service {
                 repository.updateLink(link);
             }
         }
+
     }
 }

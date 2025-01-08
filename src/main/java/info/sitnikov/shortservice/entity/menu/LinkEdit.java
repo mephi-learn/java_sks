@@ -4,7 +4,6 @@ import info.sitnikov.shortservice.controller.Output;
 import info.sitnikov.shortservice.entity.security.Authentication;
 import info.sitnikov.shortservice.model.Link;
 import info.sitnikov.shortservice.model.User;
-import info.sitnikov.shortservice.service.Config;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,8 +28,8 @@ public final class LinkEdit extends AbstractMenu {
         List<Link> links = context.service.getLinkListByUserId(user.getUserId());
         for (int i = 0; i < links.size(); i++) {
             Link link = links.get(i);
-            context.println("%4d: [%s] %s Осталось переходов %d, минут %d", i + 1, Config.SITE_NAME + link.getShortLink(), link.getFqdn(), link.getClicksLeft(),
-                    link.durationPrint());
+            context.println("%4d: [%s] %s Осталось переходов %d, минут %d", i + 1, context.service.config().getSiteName() + link.getShortLink(),
+                    link.getFqdn(), link.getClicksLeft(), link.durationPrint());
         }
         context.println("%4d: %s", links.size() + 1, "Назад");
         printLine(context);

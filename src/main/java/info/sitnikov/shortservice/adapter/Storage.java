@@ -18,6 +18,7 @@ public interface Storage {
     void store(Map<String, User> users);
 
     Map<String, User> load() throws IOException;
+    Map<String, String> loadConfig(String filename) throws IOException;
 
     final class FileStorage implements Storage {
         private final String filename;
@@ -46,6 +47,11 @@ public interface Storage {
         @Override
         public Map<String, User> load() throws IOException {
             return gson.fromJson(Files.readString(Paths.get(this.filename)), type);
+        }
+
+        @Override
+        public Map<String, String> loadConfig(String filename) throws IOException {
+            return gson.fromJson(Files.readString(Paths.get(filename)), type);
         }
     }
 }
