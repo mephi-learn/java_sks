@@ -52,5 +52,6 @@ public final class LinkCreate extends AbstractMenu {
             context.println("Был зарегистрирован пользователь с UUID: %s", link.getUserId());
         }
         context.println("Создана короткая ссылка: %s", context.service.config().getSiteName() + link.getShortURL());
+        context.service.storeRepository();
     }
 }

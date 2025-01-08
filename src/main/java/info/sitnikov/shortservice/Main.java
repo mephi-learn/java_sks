@@ -52,6 +52,7 @@ public class Main {
         new LinkCreate().register(root);
         new LinkGo().register(root);
         new LinkEdit().register(root);
+        new LinkDelete().register(root);
 
         return root;
     }
@@ -68,6 +69,8 @@ public class Main {
         Menu linkMenu = root.submenu("Управление ссылками");
         new LinkCreate().register(linkMenu);
         new LinkEdit().register(linkMenu);
+        new LinkDelete().register(linkMenu);
+        new LinkGo().register(linkMenu);
 
         return root;
     }

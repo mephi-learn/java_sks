@@ -5,12 +5,11 @@ import info.sitnikov.shortservice.entity.security.Authentication;
 import info.sitnikov.shortservice.model.Link;
 import info.sitnikov.shortservice.model.User;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-public final class LinkEdit extends AbstractMenu {
-    public LinkEdit() {
-        super("Редактирование ссылок");
+public final class LinkDelete extends AbstractMenu {
+    public LinkDelete() {
+        super("Удаление ссылок");
     }
 
     private static void printLine(Output output) {
@@ -21,7 +20,7 @@ public final class LinkEdit extends AbstractMenu {
     public void accept(Context context) {
         User user = context.authorized().map(Authentication.Session::user).orElse(null);
         if (user == null) {
-            context.errorln("Для редактирования ссылок необходимо аутентифицироваться");
+            context.errorln("Для удаления ссылок необходимо аутентифицироваться");
             return;
         }
 
@@ -53,15 +52,8 @@ public final class LinkEdit extends AbstractMenu {
             return;
         }
 
-        String fqdn = context.selectStringDefault("Введите новую ссылку", link.getFqdn());
-        if (!fqdn.startsWith("http://") && !fqdn.startsWith("https://")) {
-            fqdn = "https://" + fqdn;
-        }
-        Number count = context.selectNumberDefault("Введите новое количество переходов", link.getClicksLeft());
-        Number minutes = context.selectNumberDefault("Введите новое время жизни в минутах", link.durationPrint());
-        link.setFqdn(fqdn);
-        link.setClicksLeft(count.intValue());
-        link.setExpirationDate(LocalDateTime.now().plusMinutes(minutes.intValue()));
+        user.getLinks().remove(link.getShortLink());
+        context.println("Ссылка удалена");
         context.service.storeRepository();
     }
 }
